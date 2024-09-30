@@ -1,8 +1,3 @@
-#
-# Compila todos os projetos
-# (C) Prof. Luiz Lima Jr.
-#
-
 PROJECTS = \
 	../cliente		\
 	../servidor

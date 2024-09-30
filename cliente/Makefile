@@ -1,12 +1,4 @@
-# Makefile - ACE/TAO-CORBA
-# SD - Escola Politécnica - PUCPR
-# Prof. Luiz Lima Jr.
-
 include $(ACE_ROOT)/include/makeinclude/platform_macros.GNU
-
-#
-# Parâmetros:
-#
 
 PROJECT = cliente_conta
 SERVER = false
@@ -23,8 +15,6 @@ COMMONDIR = ../common
 INCLUDES  = $(IDLDIR) $(ACE_ROOT) $(TAO_ROOT) $(TAO_ROOT)/orbsvcs $(COMMONDIR)
 LIBRARIES = ACE TAO TAO_CosNaming TAO_AnyTypeCode TAO_IORTable
 LIB_DIRS  = $(ACE_ROOT)/lib
-
-# Derived variables
 
 PROGRAM = $(addprefix $(BINDIR)/,$(PROJECT))
 IDL = $(addprefix $(IDLDIR)/,$(IDL.idl))
@@ -46,13 +36,8 @@ INCS = $(foreach d, $(INCLUDES), -I$d)
 LIBS = $(foreach l, $(LIBRARIES), -l$l)
 LIBDIRS = $(foreach d, $(LIB_DIRS), -L$d)
 
-# C++ Adtional Compliler and Linker Flags
-# -Wno-tautological-undefined-compare
-
 CPPFLAGS +=
 LDFLAGS +=
-
-# Rules for C++.
 
 .SUFFIXES: .cpp .o
 COMPILE.cpp = $(CXX) $(CPPFLAGS) $(INCS) $(CCFLAGS)
@@ -61,13 +46,9 @@ LINK.cpp = $(CXX) $(LDFLAGS)
 	@echo -e "Compilando $(notdir $<)"
 	@$(COMPILE.cpp) -c -o $(<:%.cpp=%.o) $<
 
-# Rules for stubs/skeletons
-
 %C.cpp:%.idl
 	@echo -e "Gerando stubs/skeletons para $(notdir $<)"
 	@tao_idl -Gstl -w -I$(IDLDIR) -o $(IDLDIR) $< 2> /dev/null
-
-# Standard targets.
 
 .KEEP_STATE:
 
